@@ -1,6 +1,5 @@
-<p>home works!</p>
-<!--<p>Access Token: {{ this.accessToken }}</p>-->
+@for (rep of [].constructor(100); track $index) {
 @for (ticket of this.tickets; track $index) {
-  <p>{{ ticket.name}} created at {{ticket.creationTime}}</p>
+<p>{{ ticket.name}} created at {{ticket.creationTime}}</p>
 }
-<button (click)="logout()">Logout</button>
+}

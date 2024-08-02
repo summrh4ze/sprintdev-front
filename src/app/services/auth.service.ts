@@ -1,18 +1,19 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakLoginOptions } from 'keycloak-js';
+import { Observable } from 'rxjs';
+import { UserInfo } from '../domain/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private token: string = ""
   public authenticated = false
   public isUser = false
   public isAdmin = false
 
-  constructor(private readonly keycloak: KeycloakService) {
+  constructor(private readonly keycloak: KeycloakService, private readonly http: HttpClient) {
     this.authenticated = this.keycloak.isLoggedIn()
     if (this.authenticated) {
       const roles = this.keycloak.getUserRoles();
@@ -32,8 +33,7 @@ export class AuthService {
     this.keycloak.logout();
   }
 
-  async getAccesToken() : Promise<string> {
-    let token = await this.keycloak.getToken();
-    return token;
+  getUserInfo(): Observable<UserInfo> {
+    return this.http.get<UserInfo>("/users/me");
   }
 }
