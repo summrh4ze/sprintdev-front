@@ -1,0 +1,6 @@
+<p>home works!</p>
+<!--<p>Access Token: {{ this.accessToken }}</p>-->
+@for (ticket of this.tickets; track $index) {
+  <p>{{ ticket.name}} created at {{ticket.creationTime}}</p>
+}
+<button (click)="logout()">Logout</button>
