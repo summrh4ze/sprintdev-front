@@ -2,8 +2,8 @@
   <header>
     <hgroup>
       <h2 class="titleItem">Sprintdev</h2>
-      @if (isAuthenticated() && this.userInfo) {
-      <p class="titleItem">Welcome {{this.userInfo.firstName}} {{this.userInfo.lastName}}</p>
+      @if (isAuthenticated() && (this.getUserInfo() | async); as userInfo) {
+      <p class="titleItem">Welcome {{ userInfo.firstName }} {{ userInfo.lastName}}</p>
       }
     </hgroup>
     @if (isAuthenticated()) {

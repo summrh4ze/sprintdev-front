@@ -70,4 +70,5 @@ a:hover {
 .content {
   overflow-y: scroll;
   height: 100vh;
+  padding-left: 5px;
 }
