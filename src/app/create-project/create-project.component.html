@@ -1,0 +1,16 @@
+<form [formGroup]="projectCreateForm" (ngSubmit)="handleSubmit()">
+  <section>
+    <h3>Create Project</h3>
+    <fieldset>
+      <p>
+        <label for="projName">Name: <span aria-label="required">*</span> </label>
+        <input type="text" name="projName" id="projName" formControlName="projectName" required />
+      </p>
+      <p>
+        <label for="projDesc">Description: <span aria-label="required">*</span> </label>
+        <input type="text" name="projDesc" id="projDesc" formControlName="projectDescription" required />
+      </p>
+      <button type="submit" [disabled]="!projectCreateForm.valid">Submit</button>
+    </fieldset>
+  </section>
+</form>

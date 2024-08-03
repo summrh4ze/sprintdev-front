@@ -1,6 +1,6 @@
 export interface UserInfo {
   id: number,
-  role: string,
+  roles: string[],
   firstName: string,
   lastName: string,
   username: string,
