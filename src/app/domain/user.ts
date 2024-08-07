@@ -6,3 +6,8 @@ export interface UserInfo {
   username: string,
   email: string,
 };
+
+export interface UserRole {
+  user: UserInfo,
+  role: String,
+};

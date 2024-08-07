@@ -1,4 +1,4 @@
-import {KeycloakService} from 'keycloak-angular';
+import { KeycloakService } from 'keycloak-angular';
 
 export const initKeycloak = (keycloak: KeycloakService) => {
   return () => keycloak.init({

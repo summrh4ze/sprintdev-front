@@ -1,16 +1,45 @@
-<form [formGroup]="projectCreateForm" (ngSubmit)="handleSubmit()">
+<form (ngSubmit)="handleSubmit()">
   <section>
     <h3>Create Project</h3>
     <fieldset>
       <p>
         <label for="projName">Name: <span aria-label="required">*</span> </label>
-        <input type="text" name="projName" id="projName" formControlName="projectName" required />
+        <input type="text" name="projName" id="projName" [(ngModel)]="projectName" required />
       </p>
       <p>
         <label for="projDesc">Description: <span aria-label="required">*</span> </label>
-        <input type="text" name="projDesc" id="projDesc" formControlName="projectDescription" required />
+        <input type="text" name="projDesc" id="projDesc" [(ngModel)]="projectDescription" required />
       </p>
-      <button type="submit" [disabled]="!projectCreateForm.valid">Submit</button>
+      @if (this.userRoles.length > 0) {
+      <p>Assigned Users:</p>
+      @for (userRole of this.userRoles; track $index) {
+      <li>
+        {{userRole.user.firstName}} {{userRole.user.lastName}} -> {{userRole.role}}
+        <button type="button" (click)="removeUserRole(userRole)">Remove</button>
+      </li>
+      }
+      }
+
+      <p class="userRoleLine">
+        <label for="projUsers">Assign user/role: <span aria-label="required">*</span></label>
+        <select name="selectedUser" id="selecteduser" [(ngModel)]="selectedUser">
+          @if ((this.allUsers | async); as users) {
+          @for (user of users; track $index) {
+          <option [value]="user.id">{{user.firstName}} {{user.lastName}}</option>
+          }
+          }
+        </select>
+        <select name="selectedRole" id="selectedRole" [(ngModel)]="selectedRole">
+          <option value="PO">PRODUCT_OWNER</option>
+          <option value="SM">SCRUM_MASTER</option>
+          <option value="DEV_LEAD">DEV_LEAD</option>
+          <option value="DEV">DEV</option>
+          <option value="QA_LEAD">QA_LEAD</option>
+          <option value="QA">QA</option>
+        </select>
+        <button type="button" (click)="addUserRole()">ADD</button>
+      </p>
+      <button [disabled]="!canSubmit()">Submit</button>
     </fieldset>
   </section>
 </form>
