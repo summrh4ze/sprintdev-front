@@ -1,0 +1,63 @@
+table {
+  width: 99%;
+  text-align: left;
+  margin-bottom: 15px;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: rebeccapurple;
+  color: wheat;
+}
+
+td,
+th {
+  border: 2px solid black;
+}
+
+a {
+  color: rebeccapurple;
+  text-decoration: none;
+  margin-left: 20px;
+}
+
+a:hover {
+  color: wheat;
+}
+
+.backlogTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.ticketLine {
+  cursor: pointer;
+}
+
+.ticketLine:hover {
+  background-color: wheat;
+}
+
+.actionItems {
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.deleteItem {
+  color: red;
+}
+
+.actionItems:hover {
+  color: grey;
+}
+
+.actionCell {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.fixedCell {
+  width: 80px;
+}

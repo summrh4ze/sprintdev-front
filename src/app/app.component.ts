@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserInfo } from './domain/user';
 import { AuthService } from './services/auth.service';
@@ -8,7 +8,7 @@ import { AuthService } from './services/auth.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule],
+  imports: [RouterOutlet, RouterLink, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

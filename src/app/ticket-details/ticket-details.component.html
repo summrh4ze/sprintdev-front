@@ -1,0 +1,93 @@
+@if ((this.ticket | async); as ticket) {
+@if (!ticketTitleEdit) {
+<h2>{{ticket.title}} <button type="button" (click)="editTitle()">Edit</button></h2>
+} @else {
+<input type="text" name="ticketTitle" id="projName" [(ngModel)]="ticket.title" /> <button type="button"
+  (click)="saveTitle()">Save</button>
+}
+
+<div class="fieldRow">
+  <p class="fieldName"><strong>Author: </strong></p>
+  <p class="fieldValue">{{ticket.author.firstName}} {{ticket.author.lastName}}</p>
+</div>
+
+<div class="fieldRow">
+  <p class="fieldName"><strong>Created at: </strong></p>
+  <p class="fieldValue">{{ticket.creationTime | date: 'dd-MM-yyyy HH:mm:ss'}}</p>
+</div>
+
+<div class="fieldRow">
+  <p class="fieldName"><strong>Status: </strong></p>
+  <p class="fieldValue">{{ticket.status}}</p>
+</div>
+
+<div class="fieldRow">
+  <p class="fieldName"><strong>Size: </strong></p>
+  <p class="fieldValue">{{ticket.size}}</p>
+</div>
+
+<div class="fieldRow">
+  <p class="fieldName"><strong>Assignee: </strong></p>
+  @if (ticket.assignee) {
+  <p class="fieldValue">{{ticket.assignee.firstName}} {{ticket.assignee.lastName}}</p>
+  } @else {
+  <p class="fieldValue">Unassigned</p>
+  }
+</div>
+
+<div class="fieldRow">
+  <p class="fieldName"><strong>Sprint: </strong></p>
+  @if (ticket.sprint) {
+  <p class="fieldValue">{{ticket.sprint.name}}</p>
+  } @else {
+  <p class="fieldValue">Unassigned</p>
+  }
+</div>
+
+<details>
+  <summary class="fieldName"><strong>Comments: </strong></summary>
+  @if (!ticketCommentAdd) {
+  <button type="button" (click)="addComment()" class="commentButton">Add comment</button>
+  } @else {
+  <div class="commentEditField">
+    <textarea id="ticketComment" name="ticketComment" cols="50" rows="5" [(ngModel)]="commentEdit"></textarea>
+    <button type="button" (click)="saveComment()" class="commentButton">Save comment</button>
+  </div>
+  }
+
+  <div>
+    @for (comment of ticket.comments; track $index) {
+    <div class="commentBox">
+      <div class="commentMetadata">
+        <p class="commentMetadataPart"><strong>{{comment.author.firstName}} {{comment.author.lastName}}</strong></p>
+        <p class="commentMetadataPart">{{comment.creationTime | date: 'dd-MM-yyyy HH:mm'}}</p>
+      </div>
+      <p class="commentContent">{{comment.content}}</p>
+    </div>
+
+    }
+  </div>
+</details>
+
+<details>
+  <summary class="fieldName"><strong>Events:</strong></summary>
+  <ul>
+    @for (event of ticket.events; track $index) {
+    <li>{{renderEvent(event)}}</li>
+    }
+  </ul>
+</details>
+
+<div class="content">
+  @if (!ticketContentEdit) {
+  <label for="ticketContent" class="fieldName"><strong>Content </strong><button type="button"
+      (click)="editContent()">Edit</button></label>
+  <markdown [data]="ticket.content"></markdown>
+  } @else {
+  <label for="ticketContent" class="fieldName"><strong>Content </strong><button type="button"
+      (click)="saveContent()">Save</button></label>
+  <textarea id="ticketContent" name="ticketContent" cols="50" rows="20" [(ngModel)]="ticket.content"
+    required></textarea>
+  }
+</div>
+}

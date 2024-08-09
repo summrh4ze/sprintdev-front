@@ -1,0 +1,85 @@
+.content {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+markdown {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 2px, solid, black;
+  padding: 5px;
+  height: 300px;
+  overflow-y: scroll;
+}
+
+textarea {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 2px, solid, black;
+}
+
+input {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 5px;
+}
+
+.fieldRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.fieldRow:nth-child(odd) {
+  background-color: gainsboro;
+}
+
+.fieldName {
+  width: 150px;
+  padding: 5px;
+  margin: 0;
+}
+
+.fieldValue {
+  padding: 5px;
+  margin: 0;
+}
+
+.commentEditField {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+
+.commentBox {
+  border: 2px, solid, black;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+  white-space: pre-wrap;
+}
+
+.commentMetadata {
+  display: flex;
+  flex-direction: row;
+  background-color: rebeccapurple;
+  color: wheat;
+  padding: 5px;
+}
+
+.commentMetadataPart {
+  margin: 0;
+  margin-right: 20px;
+}
+
+.commentContent {
+  padding: 5px;
+}
+
+.commentButton {
+  margin-bottom: 5px;
+}
+
+.summary {
+  margin-bottom: 5px;
+}

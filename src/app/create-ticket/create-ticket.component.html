@@ -1,0 +1,24 @@
+<form (ngSubmit)="handleSubmit()">
+  <section>
+    <h3>Create Ticket</h3>
+    <fieldset>
+      <p>
+        <label for="ticketTitle">Title: <span aria-label="required">*</span> </label>
+        <input type="text" name="ticketTitle" id="projName" [(ngModel)]="ticketTitle" required />
+      </p>
+      <p>
+        <label for="ticketContent">Content: <span aria-label="required">*</span> </label>
+        @if (ticketContentPreview) {
+        <markdown [data]="ticketContent"></markdown>
+        } @else {
+        <textarea id="ticketContent" name="ticketContent" cols="50" rows="6" [(ngModel)]="ticketContent"
+          required></textarea>
+        }
+      </p>
+      <button [disabled]="!canSubmit()">Submit</button>
+      <button type="button" (click)="toggleContentPreview()">
+        @if (ticketContentPreview) {Edit Content} @else {Preview Content}
+      </button>
+    </fieldset>
+  </section>
+</form>

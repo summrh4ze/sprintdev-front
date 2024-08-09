@@ -9,9 +9,8 @@
     @if (isAuthenticated()) {
     @if (screenWidth > 600) {
     <nav class="horizontalNav">
-      <a href="backlog" class="navItem">Backlog</a>
-      <a href="dashboard" class="navItem">Dashboard</a>
-      <a href="settings" class="navItem">Settings</a>
+      <a routerLink="/home" class="navItem">Home</a>
+      <a routerLink="/settings" class="navItem">Settings</a>
       <button (click)="logout()">Logout</button>
     </nav>
     } @else {
@@ -26,9 +25,8 @@
       </svg>
       <dialog [open]="showMoreItems" class="moreItemDialog">
         <nav class="verticalNav">
-          <a href=" backlog" class="verticalNavItem">Backlog</a>
-          <a href="dashboard" class="verticalNavItem">Dashboard</a>
-          <a href="settings" class="verticalNavItem">Settings</a>
+          <a routerLink="/home" class="verticalNavItem">Home</a>
+          <a routerLink="/settings" class="verticalNavItem">Settings</a>
           <button (click)="logout()">Logout</button>
         </nav>
       </dialog>

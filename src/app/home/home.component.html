@@ -18,7 +18,7 @@
       <td>{{project.assignedUsers.length}} persons</td>
       <td class="fixedCell">
         <div class="actionCell">
-          <div class="actionItems">
+          <div class="actionItems" (click)="openProject(project.id)">
             <svg version="1.1" height="40px" width="30px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
               <path fill="currentColor"
                 d="M222,327.8a11.34,11.34,0,0,0,16,16L318.86,263h0a11.35,11.35,0,0,0,0-16h0l-80.81-80.82a11.34,11.34,0,0,0-16,16l61.47,61.46H63.9a11.34,11.34,0,0,0,0,22.68H283.47Z" />
@@ -55,6 +55,6 @@
 </table>
 @if ((this.getUserInfo() | async); as userInfo) {
 @if (userInfo.roles.includes("ADMIN")) {
-<a href="createProject">New Project</a>
+<a routerLink="/createProject">New Project</a>
 }
 }

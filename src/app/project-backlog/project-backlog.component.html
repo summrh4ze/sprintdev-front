@@ -1,0 +1,172 @@
+<div class="backlogTitle">
+  <h2>Backlog</h2>
+  <a [routerLink]="createTicketRoute">New Ticket</a>
+</div>
+
+<h3>Ready for sprint</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Status</th>
+      <th>Size</th>
+      <th>Creation Time</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @if ((this.getReadyForSprintTickets() | async); as tickets) {
+    @if (tickets.length > 0) {
+    @for (ticket of tickets; track $index) {
+    <tr>
+      <td>{{ticket.title}}</td>
+      <td>{{ticket.author.firstName}} {{ticket.author.lastName}}</td>
+      <td>{{ticket.status}}</td>
+      <td>{{ticket.size}}</td>
+      <td>{{ticket.creationTime | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
+      <td class="fixedCell">
+        <div class="actionCell">
+          <div class="actionItems" (click)="openTicket(ticket)">
+            <svg version="1.1" height="40px" width="30px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor"
+                d="M222,327.8a11.34,11.34,0,0,0,16,16L318.86,263h0a11.35,11.35,0,0,0,0-16h0l-80.81-80.82a11.34,11.34,0,0,0-16,16l61.47,61.46H63.9a11.34,11.34,0,0,0,0,22.68H283.47Z" />
+              <path fill="currentColor"
+                d="M372.84,59.53H184.26a45.7,45.7,0,0,0-45.64,45.65V151.3a11.34,11.34,0,0,0,22.67,0V105.18a23,23,0,0,1,23-23H372.84a23,23,0,0,1,23,23V407a23,23,0,0,1-23,23H184.26a23,23,0,0,1-23-23v-45a11.34,11.34,0,1,0-22.67,0v45a45.7,45.7,0,0,0,45.64,45.65H372.84A45.7,45.7,0,0,0,418.49,407V105.18A45.7,45.7,0,0,0,372.84,59.53Z" />
+            </svg>
+          </div>
+          <div class="actionItems deleteItem" (click)="deleteTicket(ticket)">
+            <svg version="1.1" height="40px" width="30px" viewBox="13 13 70 70" xmlns="http://www.w3.org/2000/svg">
+              <g>
+                <path fill="currentColor"
+                  d="M67.305,36.442v-8.055c0-0.939-0.762-1.701-1.7-1.701H54.342v-5.524c0-0.938-0.761-1.7-1.699-1.7h-12.75   c-0.939,0-1.701,0.762-1.701,1.7v5.524H26.93c-0.939,0-1.7,0.762-1.7,1.701v8.055c0,0.938,0.761,1.699,1.7,1.699h0.488v34.021   c0,0.938,0.761,1.7,1.699,1.7h29.481c3.595,0,6.52-2.924,6.52-6.518V38.142h0.486C66.543,38.142,67.305,37.381,67.305,36.442z    M41.592,22.862h9.35v3.824h-9.35V22.862z M61.719,67.345c0,1.719-1.4,3.117-3.12,3.117h-27.78v-32.32l30.9,0.002V67.345z    M63.904,34.742H28.629v-4.655h11.264h12.75h11.262V34.742z" />
+                <rect fill="currentColor" height="19.975" width="3.4" x="36.066" y="44.962" />
+                <rect fill="currentColor" height="19.975" width="3.4" x="44.566" y="44.962" />
+                <rect fill="currentColor" height="19.975" width="3.4" x="53.066" y="44.962" />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </td>
+    </tr>
+    }
+    } @else {
+    <tr>
+      <td colspan="6">No tickets</td>
+    </tr>
+    }
+    }
+  </tbody>
+</table>
+
+<h3>Ready for estimation</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Status</th>
+      <th>Size</th>
+      <th>Creation Time</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @if ((this.getReadyForEstimationTickets() | async); as tickets) {
+    @if (tickets.length > 0) {
+    @for (ticket of tickets; track $index) {
+    <tr>
+      <td>{{ticket.title}}</td>
+      <td>{{ticket.author.firstName}} {{ticket.author.lastName}}</td>
+      <td>{{ticket.status}}</td>
+      <td>{{ticket.size}}</td>
+      <td>{{ticket.creationTime | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
+      <td class="fixedCell">
+        <div class="actionCell">
+          <div class="actionItems" (click)="openTicket(ticket)">
+            <svg version="1.1" height="40px" width="30px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor"
+                d="M222,327.8a11.34,11.34,0,0,0,16,16L318.86,263h0a11.35,11.35,0,0,0,0-16h0l-80.81-80.82a11.34,11.34,0,0,0-16,16l61.47,61.46H63.9a11.34,11.34,0,0,0,0,22.68H283.47Z" />
+              <path fill="currentColor"
+                d="M372.84,59.53H184.26a45.7,45.7,0,0,0-45.64,45.65V151.3a11.34,11.34,0,0,0,22.67,0V105.18a23,23,0,0,1,23-23H372.84a23,23,0,0,1,23,23V407a23,23,0,0,1-23,23H184.26a23,23,0,0,1-23-23v-45a11.34,11.34,0,1,0-22.67,0v45a45.7,45.7,0,0,0,45.64,45.65H372.84A45.7,45.7,0,0,0,418.49,407V105.18A45.7,45.7,0,0,0,372.84,59.53Z" />
+            </svg>
+          </div>
+          <div class="actionItems deleteItem" (click)="deleteTicket(ticket)">
+            <svg version="1.1" height="40px" width="30px" viewBox="13 13 70 70" xmlns="http://www.w3.org/2000/svg">
+              <g>
+                <path fill="currentColor"
+                  d="M67.305,36.442v-8.055c0-0.939-0.762-1.701-1.7-1.701H54.342v-5.524c0-0.938-0.761-1.7-1.699-1.7h-12.75   c-0.939,0-1.701,0.762-1.701,1.7v5.524H26.93c-0.939,0-1.7,0.762-1.7,1.701v8.055c0,0.938,0.761,1.699,1.7,1.699h0.488v34.021   c0,0.938,0.761,1.7,1.699,1.7h29.481c3.595,0,6.52-2.924,6.52-6.518V38.142h0.486C66.543,38.142,67.305,37.381,67.305,36.442z    M41.592,22.862h9.35v3.824h-9.35V22.862z M61.719,67.345c0,1.719-1.4,3.117-3.12,3.117h-27.78v-32.32l30.9,0.002V67.345z    M63.904,34.742H28.629v-4.655h11.264h12.75h11.262V34.742z" />
+                <rect fill="currentColor" height="19.975" width="3.4" x="36.066" y="44.962" />
+                <rect fill="currentColor" height="19.975" width="3.4" x="44.566" y="44.962" />
+                <rect fill="currentColor" height="19.975" width="3.4" x="53.066" y="44.962" />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </td>
+    </tr>
+    }
+    } @else {
+    <tr>
+      <td colspan="6">No tickets</td>
+    </tr>
+    }
+    }
+  </tbody>
+</table>
+
+<h3>Created</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Status</th>
+      <th>Size</th>
+      <th>Creation Time</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @if ((this.getCreatedTickets() | async); as tickets) {
+    @if (tickets.length > 0) {
+    @for (ticket of tickets; track $index) {
+    <tr>
+      <td>{{ticket.title}}</td>
+      <td>{{ticket.author.firstName}} {{ticket.author.lastName}}</td>
+      <td>{{ticket.status}}</td>
+      <td>{{ticket.size}}</td>
+      <td>{{ticket.creationTime | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
+      <td class="fixedCell">
+        <div class="actionCell">
+          <div class="actionItems" (click)="openTicket(ticket)">
+            <svg version="1.1" height="40px" width="30px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor"
+                d="M222,327.8a11.34,11.34,0,0,0,16,16L318.86,263h0a11.35,11.35,0,0,0,0-16h0l-80.81-80.82a11.34,11.34,0,0,0-16,16l61.47,61.46H63.9a11.34,11.34,0,0,0,0,22.68H283.47Z" />
+              <path fill="currentColor"
+                d="M372.84,59.53H184.26a45.7,45.7,0,0,0-45.64,45.65V151.3a11.34,11.34,0,0,0,22.67,0V105.18a23,23,0,0,1,23-23H372.84a23,23,0,0,1,23,23V407a23,23,0,0,1-23,23H184.26a23,23,0,0,1-23-23v-45a11.34,11.34,0,1,0-22.67,0v45a45.7,45.7,0,0,0,45.64,45.65H372.84A45.7,45.7,0,0,0,418.49,407V105.18A45.7,45.7,0,0,0,372.84,59.53Z" />
+            </svg>
+          </div>
+          <div class="actionItems deleteItem" (click)="deleteTicket(ticket)">
+            <svg version="1.1" height="40px" width="30px" viewBox="13 13 70 70" xmlns="http://www.w3.org/2000/svg">
+              <g>
+                <path fill="currentColor"
+                  d="M67.305,36.442v-8.055c0-0.939-0.762-1.701-1.7-1.701H54.342v-5.524c0-0.938-0.761-1.7-1.699-1.7h-12.75   c-0.939,0-1.701,0.762-1.701,1.7v5.524H26.93c-0.939,0-1.7,0.762-1.7,1.701v8.055c0,0.938,0.761,1.699,1.7,1.699h0.488v34.021   c0,0.938,0.761,1.7,1.699,1.7h29.481c3.595,0,6.52-2.924,6.52-6.518V38.142h0.486C66.543,38.142,67.305,37.381,67.305,36.442z    M41.592,22.862h9.35v3.824h-9.35V22.862z M61.719,67.345c0,1.719-1.4,3.117-3.12,3.117h-27.78v-32.32l30.9,0.002V67.345z    M63.904,34.742H28.629v-4.655h11.264h12.75h11.262V34.742z" />
+                <rect fill="currentColor" height="19.975" width="3.4" x="36.066" y="44.962" />
+                <rect fill="currentColor" height="19.975" width="3.4" x="44.566" y="44.962" />
+                <rect fill="currentColor" height="19.975" width="3.4" x="53.066" y="44.962" />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </td>
+    </tr>
+    }
+    } @else {
+    <tr>
+      <td colspan="6">No tickets</td>
+    </tr>
+    }
+    }
+  </tbody>
+</table>

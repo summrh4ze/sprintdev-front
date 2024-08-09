@@ -6,3 +6,11 @@ export interface Project {
   description: string,
   assignedUsers: UserInfo[],
 };
+
+export interface Sprint {
+  id: number,
+  name: string,
+  description: string,
+  startTime: Date,
+  endTime: Date,
+}

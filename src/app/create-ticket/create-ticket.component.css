@@ -1,0 +1,28 @@
+label {
+  display: inline-block;
+  width: 160px;
+  flex-shrink: 0;
+}
+
+input {
+  width: 380px;
+}
+
+markdown {
+  border: 1px, solid, black;
+  padding: 5px;
+  height: 200px;
+  overflow-y: scroll;
+}
+
+section {
+  padding-bottom: 20px;
+}
+
+p {
+  display: flex;
+}
+
+button {
+  margin-right: 15px;
+}
