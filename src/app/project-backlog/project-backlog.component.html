@@ -1,7 +1,51 @@
 <div class="backlogTitle">
   <h2>Backlog</h2>
   <a [routerLink]="createTicketRoute">New Ticket</a>
+  <a [routerLink]="createSprintRoute">New Sprint</a>
 </div>
+
+<h3>Sprints</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>StartDate</th>
+      <th>EndDate</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @if ((this.sprints | async); as sprints) {
+    @if (sprints.length > 0) {
+    @for (sprint of sprints; track $index) {
+    <tr>
+      <td>{{sprint.name}}</td>
+      <td>{{sprint.description}}</td>
+      <td>{{sprint.startDate | date: 'dd-MM-yyyy'}}</td>
+      <td>{{sprint.endDate | date: 'dd-MM-yyyy'}}</td>
+      <td class="fixedCell">
+        <div class="actionCell">
+          <div class="actionItems" (click)="openSprint(sprint)">
+            <svg version="1.1" height="40px" width="30px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor"
+                d="M222,327.8a11.34,11.34,0,0,0,16,16L318.86,263h0a11.35,11.35,0,0,0,0-16h0l-80.81-80.82a11.34,11.34,0,0,0-16,16l61.47,61.46H63.9a11.34,11.34,0,0,0,0,22.68H283.47Z" />
+              <path fill="currentColor"
+                d="M372.84,59.53H184.26a45.7,45.7,0,0,0-45.64,45.65V151.3a11.34,11.34,0,0,0,22.67,0V105.18a23,23,0,0,1,23-23H372.84a23,23,0,0,1,23,23V407a23,23,0,0,1-23,23H184.26a23,23,0,0,1-23-23v-45a11.34,11.34,0,1,0-22.67,0v45a45.7,45.7,0,0,0,45.64,45.65H372.84A45.7,45.7,0,0,0,418.49,407V105.18A45.7,45.7,0,0,0,372.84,59.53Z" />
+            </svg>
+          </div>
+        </div>
+      </td>
+    </tr>
+    }
+    } @else {
+    <tr>
+      <td colspan="6">No sprints</td>
+    </tr>
+    }
+    }
+  </tbody>
+</table>
 
 <h3>Ready for sprint</h3>
 <table>

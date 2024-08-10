@@ -31,14 +31,6 @@ a:hover {
   align-items: baseline;
 }
 
-.ticketLine {
-  cursor: pointer;
-}
-
-.ticketLine:hover {
-  background-color: wheat;
-}
-
 .actionItems {
   cursor: pointer;
   margin-right: 15px;

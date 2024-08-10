@@ -1,0 +1,60 @@
+<form (ngSubmit)="handleSubmit()">
+  <section>
+    <h3>Create Sprint</h3>
+    <fieldset>
+      <p>
+        <label for="sprintName">Name: <span aria-label="required">*</span> </label>
+        <input type="text" name="sprintName" id="sprintName" [(ngModel)]="sprintName" required />
+      </p>
+      <p>
+        <label for="sprintDescription">Description: <span aria-label="required">*</span> </label>
+        <input type="text" name="sprintDescription" id="sprintDescription" [(ngModel)]="sprintDescription" required />
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Status</th>
+            <th>Size</th>
+            <th>Creation Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if ((this.getSelectedTickets() | async); as tickets) {
+          @if (tickets.length > 0) {
+          @for (ticket of tickets; track $index) {
+          <tr>
+            <td>{{ticket.title}}</td>
+            <td>{{ticket.author.firstName}} {{ticket.author.lastName}}</td>
+            <td>{{ticket.status}}</td>
+            <td>{{ticket.size}}</td>
+            <td>{{ticket.creationTime | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
+          </tr>
+          }
+          } @else {
+          <tr>
+            <td colspan="5">No tickets</td>
+          </tr>
+          }
+          }
+
+        </tbody>
+      </table>
+
+      <p class="addTicketLine">
+        <label for="sprintTickets">Add Ticket: <span aria-label="required">*</span></label>
+        <select name="sprintTickets" id="sprintTickets" [(ngModel)]="selectedTicketId">
+          @if ((this.getRemainingTickets() | async); as tickets) {
+          @for (ticket of tickets; track $index) {
+          <option [value]="ticket.id">{{ticket.title}}</option>
+          }
+          }
+        </select>
+        <button type="button" (click)="addTicket()">ADD</button>
+      </p>
+      <button [disabled]="!canSubmit()">Submit</button>
+    </fieldset>
+  </section>
+</form>

@@ -1,0 +1,39 @@
+label {
+  display: inline-block;
+  width: 160px;
+}
+
+input {
+  width: 250px;
+}
+
+section {
+  padding-bottom: 20px;
+}
+
+select {
+  width: 150px;
+  margin-right: 15px;
+}
+
+.addTicketLine {
+  display: flex;
+  flex-direction: row;
+}
+
+table {
+  width: 99%;
+  text-align: left;
+  margin-bottom: 15px;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: rebeccapurple;
+  color: wheat;
+}
+
+td,
+th {
+  border: 2px solid black;
+}

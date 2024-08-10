@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MarkdownModule } from 'ngx-markdown';
-import { EMPTY, Observable, of, shareReplay } from 'rxjs';
+import { combineLatest, EMPTY, map, mergeMap, Observable, Observer, of, shareReplay } from 'rxjs';
 import { Ticket, TicketEvent } from '../domain/ticket';
 import { AuthService } from '../services/auth.service';
 
@@ -20,6 +20,7 @@ export class TicketDetailsComponent {
   ticketContentEdit = false;
   ticketTitleEdit = false;
   ticketCommentAdd = false;
+  selectedSize = "";
   commentEdit = "";
 
   constructor(
@@ -78,10 +79,10 @@ export class TicketDetailsComponent {
         res = res + " - Ticket title edited by ";
         break;
       case 'SIZE_VOTE':
-        res = res + " - Ticket size voted by ";
+        res = res + " - Ticket size " + event.sizeVote + " voted by ";
         break;
       case 'SIZE_VOTE_FINAL':
-        res = res + " - Ticket size decided by ";
+        res = res + " - Ticket size " + event.sizeVote + " decided by ";
         break;
       case 'CONTENT_EDIT':
         res = res + " - Ticket content edited by ";
@@ -100,6 +101,7 @@ export class TicketDetailsComponent {
         break;
     }
     res = res + `${event.author.firstName} ${event.author.lastName} `;
+    res = res + (event.message || "")
     return res;
   }
 
@@ -120,4 +122,118 @@ export class TicketDetailsComponent {
       });
     });
   }
+
+  private getLastUpdateContentEvent(events: TicketEvent[]): TicketEvent {
+    const filteredAndSorted = events
+      .filter(e => e.type === "CREATE" || e.type === "CONTENT_EDIT")
+      .sort((e1, e2) => {
+        if (e1.creationTime < e2.creationTime) return -1;
+        if (e1.creationTime === e2.creationTime) return 0;
+        return 1;
+      });
+    return filteredAndSorted[filteredAndSorted.length - 1];
+  }
+
+  hasUserApproved(): Observable<boolean> {
+    return combineLatest([this.auth.userInfo, this.ticket]).pipe(map(([u, t]) => {
+      const last = this.getLastUpdateContentEvent(t.events);
+      if (t.events.some(e =>
+        e.author.id === u.id &&
+        e.type === "CONTENT_APPROVE" &&
+        e.creationTime > last.creationTime
+      )) {
+        return true;
+      }
+      return false;
+    }));
+  }
+
+  hasUserVoted(): Observable<boolean> {
+    return combineLatest([this.auth.userInfo, this.ticket]).pipe(map(([u, t]) => {
+      if (t.events.some(e =>
+        e.author.id === u.id &&
+        e.type === "SIZE_VOTE"
+      )) {
+        return true;
+      }
+      return false;
+    }));
+  }
+
+  approve() {
+    const observer: Observer<Ticket> = {
+      next: res => this.ticket = of(res),
+      error: err => alert(err.error.message),
+      complete: () => console.log("PUT /tickets/id/approve completed")
+    }
+    this.ticket.pipe(
+      mergeMap(t => {
+        console.log("calling PUT /tickets/id/approve");
+        return this.http.put<Ticket>(`/tickets/${t.id}/approve`, {
+          message: ""
+        });
+      }),
+    ).subscribe(observer);
+  }
+
+  finalApprove() {
+    const observer: Observer<Ticket> = {
+      next: res => this.ticket = of(res),
+      error: err => alert(err.error.message),
+      complete: () => console.log("PUT /tickets/id/approveFinal completed")
+    }
+    this.ticket.pipe(
+      mergeMap(t => {
+        console.log("calling PUT /tickets/id/approveFinal");
+        return this.http.put<Ticket>(`/tickets/${t.id}/approveFinal`, {
+          message: ""
+        });
+      }),
+    ).subscribe(observer);
+  }
+
+  voteSize() {
+    const observer: Observer<Ticket> = {
+      next: res => {
+        this.ticket = of(res);
+        this.selectedSize = "";
+      },
+      error: err => alert(err.error.message),
+      complete: () => console.log("PUT /tickets/id/vote completed")
+    }
+    this.ticket.pipe(
+      mergeMap(t => {
+        console.log("calling PUT /tickets/id/vote");
+        return this.http.put<Ticket>(`/tickets/${t.id}/vote`, {
+          message: "",
+          size: this.selectedSize
+        });
+      }),
+    ).subscribe(observer);
+  }
+
+  finalVoteSize() {
+    const observer: Observer<Ticket> = {
+      next: res => {
+        this.ticket = of(res);
+        this.selectedSize = "";
+      },
+      error: err => alert(err.error.message),
+      complete: () => console.log("PUT /tickets/id/voteFinal completed")
+    }
+    this.ticket.pipe(
+      mergeMap(t => {
+        console.log("calling PUT /tickets/id/voteFinal");
+        return this.http.put<Ticket>(`/tickets/${t.id}/voteFinal`, {
+          message: "",
+          size: this.selectedSize
+        });
+      }),
+    ).subscribe(observer);
+  }
+
+  canVote() {
+    return this.selectedSize !== "";
+  }
+
 }

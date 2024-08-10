@@ -6,6 +6,49 @@
   (click)="saveTitle()">Save</button>
 }
 
+<div class="ticketActions">
+  <p class="fieldName"><strong>Action: </strong></p>
+  @if (ticket.status === "CREATED") {
+  @if (this.hasUserApproved() | async) {
+  <button type="button" (click)="finalApprove()">Final Content Approve</button>
+  } @else {
+  <button type="button" (click)="approve()">Content Approve</button>
+  }
+  } @else if (ticket.status === "ESTIMATION_READY") {
+  @if (this.hasUserVoted() | async) {
+  <div class="ticketActions">
+    <select name="selectedSize" id="selectedSize" [(ngModel)]="selectedSize">
+      <option value="SIZE_1">S(1)</option>
+      <option value="SIZE_2">S(2)</option>
+      <option value="SIZE_3">S(3)</option>
+      <option value="SIZE_5">M(5)</option>
+      <option value="SIZE_8">M(8)</option>
+      <option value="SIZE_13">M(13)</option>
+      <option value="SIZE_20">L(20)</option>
+      <option value="SIZE_40">L(40)</option>
+      <option value="SIZE_100">XL(100)</option>
+    </select>
+    <button type="button" (click)="finalVoteSize()" [disabled]="!canVote()">Final Size Vote</button>
+  </div>
+  } @else {
+  <div class="ticketActions">
+    <select name="selectedSize" id="selectedSize" [(ngModel)]="selectedSize">
+      <option value="SIZE_1">S(1)</option>
+      <option value="SIZE_2">S(2)</option>
+      <option value="SIZE_3">S(3)</option>
+      <option value="SIZE_5">M(5)</option>
+      <option value="SIZE_8">M(8)</option>
+      <option value="SIZE_13">M(13)</option>
+      <option value="SIZE_20">L(20)</option>
+      <option value="SIZE_40">L(40)</option>
+      <option value="SIZE_100">XL(100)</option>
+    </select>
+    <button type="button" (click)="voteSize()" [disabled]="!canVote()">Size Vote</button>
+  </div>
+  }
+  }
+</div>
+
 <div class="fieldRow">
   <p class="fieldName"><strong>Author: </strong></p>
   <p class="fieldValue">{{ticket.author.firstName}} {{ticket.author.lastName}}</p>
