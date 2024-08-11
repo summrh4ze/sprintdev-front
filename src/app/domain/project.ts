@@ -13,4 +13,5 @@ export interface Sprint {
   description: string,
   startDate: Date,
   endDate: Date,
+  ticketIds: number[],
 }

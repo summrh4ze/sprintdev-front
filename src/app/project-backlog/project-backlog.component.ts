@@ -57,7 +57,7 @@ export class ProjectBacklogComponent {
   }
 
   openSprint(sprint: Sprint) {
-    this.router.navigate([`/project/${this.projectId}/sprint/${sprint.id}/details`]);
+    this.router.navigate([`/project/${this.projectId}/sprint/${sprint.id}`]);
   }
 
 }

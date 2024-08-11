@@ -46,6 +46,18 @@
     <button type="button" (click)="voteSize()" [disabled]="!canVote()">Size Vote</button>
   </div>
   }
+  } @else {
+  <div class="ticketActions">
+    <select name="selectedStatus" id="selectedStatus" [(ngModel)]="selectedStatus">
+      <option value="DEV_READY">DEV READY</option>
+      <option value="IN_PROGRESS">IN PROGRESS</option>
+      <option value="CODE_REVIEW_READY">CODE REVIEW READY</option>
+      <option value="QA_READY">QA READY</option>
+      <option value="RELEASE_READY">RELEASE READY</option>
+      <option value="DONE">DONE</option>
+    </select>
+    <button type="button" (click)="changeStatus()">Change status</button>
+  </div>
   }
 </div>
 

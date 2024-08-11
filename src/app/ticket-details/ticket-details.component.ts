@@ -22,6 +22,7 @@ export class TicketDetailsComponent {
   ticketCommentAdd = false;
   selectedSize = "";
   commentEdit = "";
+  selectedStatus = "";
 
   constructor(
     private readonly http: HttpClient,
@@ -234,6 +235,27 @@ export class TicketDetailsComponent {
 
   canVote() {
     return this.selectedSize !== "";
+  }
+
+  changeStatus() {
+    if (this.selectedStatus !== "") {
+      const observer: Observer<Ticket> = {
+        next: res => {
+          this.ticket = of(res);
+          this.selectedStatus = "";
+        },
+        error: err => alert(err.error.message),
+        complete: () => console.log("PUT /tickets/id completed")
+      }
+      this.ticket.pipe(
+        mergeMap(t => {
+          console.log("calling PUT /tickets/id");
+          return this.http.put<Ticket>(`/tickets/${t.id}`, {
+            status: this.selectedStatus
+          });
+        }),
+      ).subscribe(observer);
+    }
   }
 
 }

@@ -50,7 +50,7 @@ export const routes: Routes = [
         title: 'Create Sprint'
       },
       {
-        path: 'project/:id/sprint/:id/details',
+        path: 'project/:id/sprint/:sprintId',
         component: SprintDetailsComponent,
         title: 'Sprint Details'
       },

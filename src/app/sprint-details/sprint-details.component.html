@@ -1,1 +1,55 @@
-<p>sprint-details works!</p>
+<div class="lanes">
+  <div class="lane">
+    <h4>READY</h4>
+    @if ((this.getReadyForDevTickets() | async); as tickets) {
+    @for (ticket of tickets; track $index) {
+    <a [routerLink]="getTicketLink(ticket.id)">{{ticket.title}}</a>
+    }
+    }
+  </div>
+
+  <div class="lane">
+    <h4>PROGRESS</h4>
+    @if ((this.getInProgressTickets() | async); as tickets) {
+    @for (ticket of tickets; track $index) {
+    <a [routerLink]="getTicketLink(ticket.id)">{{ticket.title}}</a>
+    }
+    }
+  </div>
+
+  <div class="lane">
+    <h4>REVIEW</h4>
+    @if ((this.getCodeReviewReadyTickets() | async); as tickets) {
+    @for (ticket of tickets; track $index) {
+    <a [routerLink]="getTicketLink(ticket.id)">{{ticket.title}}</a>
+    }
+    }
+  </div>
+
+  <div class="lane">
+    <h4>QA</h4>
+    @if ((this.getQaReadyTickets() | async); as tickets) {
+    @for (ticket of tickets; track $index) {
+    <a [routerLink]="getTicketLink(ticket.id)">{{ticket.title}}</a>
+    }
+    }
+  </div>
+
+  <div class="lane">
+    <h4>RELEASE</h4>
+    @if ((this.getReleaseReadyTickets() | async); as tickets) {
+    @for (ticket of tickets; track $index) {
+    <a [routerLink]="getTicketLink(ticket.id)">{{ticket.title}}</a>
+    }
+    }
+  </div>
+
+  <div class="lane">
+    <h4>DONE</h4>
+    @if ((this.getDoneTickets() | async); as tickets) {
+    @for (ticket of tickets; track $index) {
+    <a [routerLink]="getTicketLink(ticket.id)">{{ticket.title}}</a>
+    }
+    }
+  </div>
+</div>

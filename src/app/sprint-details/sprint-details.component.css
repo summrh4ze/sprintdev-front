@@ -1,0 +1,27 @@
+.lanes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 98%;
+  margin-right: 5px;
+}
+
+.lane {
+  display: flex;
+  flex-direction: column;
+  border: 2px, solid, black;
+  margin-top: 5px;
+  width: 15%;
+}
+
+h4 {
+  text-align: center;
+  background-color: rebeccapurple;
+  color: wheat;
+  margin: 0;
+  padding: 5px;
+}
+
+a {
+  padding: 5px;
+}
